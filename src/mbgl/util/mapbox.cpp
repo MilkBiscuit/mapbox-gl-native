@@ -50,7 +50,7 @@ std::string normalizeSourceURL(const std::string& url, const std::string& access
         query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
     }
 
-    return baseURL + "v4/" + url.substr(protocol.length(), queryIdx - protocol.length() - 1) + ".json?access_token=" + accessToken + "&secure" + query;
+    return baseURL + "v4/" + url.substr(protocol.length(), queryIdx - protocol.length()) + ".json?access_token=" + accessToken + "&secure" + query;
 }
 
 std::string normalizeStyleURL(const std::string& url, const std::string& accessToken) {
@@ -64,10 +64,16 @@ std::string normalizeStyleURL(const std::string& url, const std::string& accessT
         return url;
     }
 
+    auto queryIdx = url.find("?");
+    std::string query = "";
+    if (queryIdx != std::string::npos) {
+        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+    }
+
     const auto& user = pathname[1];
     const auto& id = pathname[2];
     const bool isDraft = pathname.size() > 3;
-    return baseURL + "styles/v1/" + user + "/" + id + (isDraft ? "/draft" : "") + "?access_token=" + accessToken;
+    return baseURL + "styles/v1/" + user + "/" + id + (isDraft ? "/draft" : "") + "?access_token=" + accessToken + query;
 }
 
 std::string normalizeSpriteURL(const std::string& url, const std::string& accessToken) {
@@ -127,7 +133,13 @@ std::string normalizeTileURL(const std::string& url, const std::string& accessTo
         return url;
     }
 
-    return baseURL + "v4/" + url.substr(sizeof("mapbox://tiles/") - 1) + "?access_token=" + accessToken;
+    auto queryIdx = url.find("?");
+    std::string query = "";
+    if (queryIdx != std::string::npos) {
+        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+    }
+
+    return baseURL + "v4/" + url.substr(sizeof("mapbox://tiles/") - 1, queryIdx - sizeof("mapbox://tiles/") + 1) + "?access_token=" + accessToken + query;
 }
 
 std::string canonicalizeTileURL(const std::string& url, SourceType type, uint16_t tileSize) {
