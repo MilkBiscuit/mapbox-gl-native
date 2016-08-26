@@ -45,9 +45,12 @@ std::string normalizeSourceURL(const std::string& url, const std::string& access
     }
 
     auto queryIdx = url.find("?");
-    std::string query = "";
+    std::string query;
     if (queryIdx != std::string::npos) {
-        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        query = url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        if (query.length() > 0) {
+            query = "&" + query;
+        }
     }
 
     return baseURL + "v4/" + url.substr(protocol.length(), queryIdx - protocol.length()) + ".json?access_token=" + accessToken + "&secure" + query;
@@ -65,9 +68,12 @@ std::string normalizeStyleURL(const std::string& url, const std::string& accessT
     }
 
     auto queryIdx = url.find("?");
-    std::string query = "";
+    std::string query;
     if (queryIdx != std::string::npos) {
-        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        query = url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        if (query.length() > 0) {
+            query = "&" + query;
+        }
     }
 
     const auto& user = pathname[1];
@@ -134,9 +140,12 @@ std::string normalizeTileURL(const std::string& url, const std::string& accessTo
     }
 
     auto queryIdx = url.find("?");
-    std::string query = "";
+    std::string query;
     if (queryIdx != std::string::npos) {
-        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        query = url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+        if (query.length() > 0) {
+            query = "&" + query;
+        }
     }
 
     return baseURL + "v4/" + url.substr(sizeof("mapbox://tiles/") - 1, queryIdx - sizeof("mapbox://tiles/") + 1) + "?access_token=" + accessToken + query;
