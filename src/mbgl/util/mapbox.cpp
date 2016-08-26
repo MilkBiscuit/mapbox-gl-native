@@ -44,7 +44,13 @@ std::string normalizeSourceURL(const std::string& url, const std::string& access
         throw std::runtime_error("You must provide a Mapbox API access token for Mapbox tile sources");
     }
 
-    return baseURL + "v4/" + url.substr(protocol.length()) + ".json?access_token=" + accessToken + "&secure";
+    auto queryIdx = url.find("?");
+    std::string query = "";
+    if (queryIdx != std::string::npos) {
+        query = "&" + url.substr(queryIdx + 1, url.length() - queryIdx + 1);
+    }
+
+    return baseURL + "v4/" + url.substr(protocol.length(), queryIdx - protocol.length() - 1) + ".json?access_token=" + accessToken + "&secure" + query;
 }
 
 std::string normalizeStyleURL(const std::string& url, const std::string& accessToken) {

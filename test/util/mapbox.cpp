@@ -12,6 +12,9 @@ TEST(Mapbox, SourceURL) {
         "https://api.mapbox.com/v4/user.map.json?access_token=key&secure",
         mbgl::util::mapbox::normalizeSourceURL("mapbox://user.map", "key"));
     EXPECT_EQ(
+        "https://api.mapbox.com/v4/user.map.json?access_token=key&secure&style=mapbox://styles/mapbox/streets-v9@0",
+        mbgl::util::mapbox::normalizeSourceURL("mapbox://user.map?style=mapbox://styles/mapbox/streets-v9@0", "key"));
+    EXPECT_EQ(
         "http://path",
         mbgl::util::mapbox::normalizeSourceURL("http://path", "key"));
     EXPECT_THROW(
@@ -45,6 +48,9 @@ TEST(Mapbox, StyleURL) {
         "https://api.mapbox.com/styles/v1/user/style/draft?access_token=key",
         mbgl::util::mapbox::normalizeStyleURL("mapbox://styles/user/style/draft", "key"));
     EXPECT_EQ(
+        "https://api.mapbox.com/styles/v1/user/style?shave=true&access_token=key",
+        mbgl::util::mapbox::normalizeStyleURL("mapbox://styles/user/style?shave=true", "key"));
+    EXPECT_EQ(
         "http://path",
         mbgl::util::mapbox::normalizeStyleURL("http://path", "key"));
 }
@@ -77,6 +83,9 @@ TEST(Mapbox, TileURL) {
     EXPECT_EQ(
         "https://api.mapbox.com/v4/a.b/0/0/0.pbf?access_token=key",
         mbgl::util::mapbox::normalizeTileURL("mapbox://tiles/a.b/0/0/0.pbf", "key"));
+    EXPECT_EQ(
+        "https://api.mapbox.com/v4/a.b/0/0/0.pbf?style=mapbox://styles/mapbox/streets-v9@0&access_token=key",
+        mbgl::util::mapbox::normalizeTileURL("mapbox://tiles/a.b/0/0/0.pbf?style=mapbox://styles/mapbox/streets-v9@0", "key"));
     EXPECT_EQ(
         "https://api.mapbox.com/v4/a.b/0/0/0.png?access_token=key",
         mbgl::util::mapbox::normalizeTileURL("mapbox://tiles/a.b/0/0/0.png", "key"));
