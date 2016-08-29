@@ -13,7 +13,7 @@ namespace style {
 
    Use via `Filter::operator()`. For example:
 
-       if (filter(feature) {
+       if (filter(feature)) {
            // matches the filter
        } else {
            // does not match
