@@ -47,6 +47,7 @@ PropertyValue<Color> BackgroundLayer::getBackgroundColor() const {
 
 void BackgroundLayer::setBackgroundColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     impl->paint.backgroundColor.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<std::string> BackgroundLayer::getDefaultBackgroundPattern() {
@@ -59,6 +60,7 @@ PropertyValue<std::string> BackgroundLayer::getBackgroundPattern() const {
 
 void BackgroundLayer::setBackgroundPattern(PropertyValue<std::string> value, const optional<std::string>& klass) {
     impl->paint.backgroundPattern.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<float> BackgroundLayer::getDefaultBackgroundOpacity() {
@@ -71,6 +73,7 @@ PropertyValue<float> BackgroundLayer::getBackgroundOpacity() const {
 
 void BackgroundLayer::setBackgroundOpacity(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.backgroundOpacity.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 } // namespace style

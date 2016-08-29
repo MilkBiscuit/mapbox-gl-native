@@ -50,6 +50,7 @@ const std::string& LineLayer::getSourceLayer() const {
 
 void LineLayer::setFilter(const Filter& filter) {
     impl->filter = filter;
+    impl->observer->onLayerFilterChanged(*this);
 }
 
 const Filter& LineLayer::getFilter() const {
@@ -68,6 +69,7 @@ PropertyValue<LineCapType> LineLayer::getLineCap() const {
 
 void LineLayer::setLineCap(PropertyValue<LineCapType> value) {
     impl->layout.lineCap.set(value);
+    impl->observer->onLayerLayoutPropertyChanged(*this);
 }
 PropertyValue<LineJoinType> LineLayer::getDefaultLineJoin() {
     return { LineJoinType::Miter };
@@ -79,6 +81,7 @@ PropertyValue<LineJoinType> LineLayer::getLineJoin() const {
 
 void LineLayer::setLineJoin(PropertyValue<LineJoinType> value) {
     impl->layout.lineJoin.set(value);
+    impl->observer->onLayerLayoutPropertyChanged(*this);
 }
 PropertyValue<float> LineLayer::getDefaultLineMiterLimit() {
     return { 2 };
@@ -90,6 +93,7 @@ PropertyValue<float> LineLayer::getLineMiterLimit() const {
 
 void LineLayer::setLineMiterLimit(PropertyValue<float> value) {
     impl->layout.lineMiterLimit.set(value);
+    impl->observer->onLayerLayoutPropertyChanged(*this);
 }
 PropertyValue<float> LineLayer::getDefaultLineRoundLimit() {
     return { 1 };
@@ -101,6 +105,7 @@ PropertyValue<float> LineLayer::getLineRoundLimit() const {
 
 void LineLayer::setLineRoundLimit(PropertyValue<float> value) {
     impl->layout.lineRoundLimit.set(value);
+    impl->observer->onLayerLayoutPropertyChanged(*this);
 }
 
 // Paint properties
@@ -115,6 +120,7 @@ PropertyValue<float> LineLayer::getLineOpacity() const {
 
 void LineLayer::setLineOpacity(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.lineOpacity.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<Color> LineLayer::getDefaultLineColor() {
@@ -127,6 +133,7 @@ PropertyValue<Color> LineLayer::getLineColor() const {
 
 void LineLayer::setLineColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     impl->paint.lineColor.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<std::array<float, 2>> LineLayer::getDefaultLineTranslate() {
@@ -139,6 +146,7 @@ PropertyValue<std::array<float, 2>> LineLayer::getLineTranslate() const {
 
 void LineLayer::setLineTranslate(PropertyValue<std::array<float, 2>> value, const optional<std::string>& klass) {
     impl->paint.lineTranslate.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<TranslateAnchorType> LineLayer::getDefaultLineTranslateAnchor() {
@@ -151,6 +159,7 @@ PropertyValue<TranslateAnchorType> LineLayer::getLineTranslateAnchor() const {
 
 void LineLayer::setLineTranslateAnchor(PropertyValue<TranslateAnchorType> value, const optional<std::string>& klass) {
     impl->paint.lineTranslateAnchor.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<float> LineLayer::getDefaultLineWidth() {
@@ -163,6 +172,7 @@ PropertyValue<float> LineLayer::getLineWidth() const {
 
 void LineLayer::setLineWidth(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.lineWidth.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<float> LineLayer::getDefaultLineGapWidth() {
@@ -175,6 +185,7 @@ PropertyValue<float> LineLayer::getLineGapWidth() const {
 
 void LineLayer::setLineGapWidth(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.lineGapWidth.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<float> LineLayer::getDefaultLineOffset() {
@@ -187,6 +198,7 @@ PropertyValue<float> LineLayer::getLineOffset() const {
 
 void LineLayer::setLineOffset(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.lineOffset.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<float> LineLayer::getDefaultLineBlur() {
@@ -199,6 +211,7 @@ PropertyValue<float> LineLayer::getLineBlur() const {
 
 void LineLayer::setLineBlur(PropertyValue<float> value, const optional<std::string>& klass) {
     impl->paint.lineBlur.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<std::vector<float>> LineLayer::getDefaultLineDasharray() {
@@ -211,6 +224,7 @@ PropertyValue<std::vector<float>> LineLayer::getLineDasharray() const {
 
 void LineLayer::setLineDasharray(PropertyValue<std::vector<float>> value, const optional<std::string>& klass) {
     impl->paint.lineDasharray.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 PropertyValue<std::string> LineLayer::getDefaultLinePattern() {
@@ -223,6 +237,7 @@ PropertyValue<std::string> LineLayer::getLinePattern() const {
 
 void LineLayer::setLinePattern(PropertyValue<std::string> value, const optional<std::string>& klass) {
     impl->paint.linePattern.set(value, klass);
+    impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 } // namespace style
